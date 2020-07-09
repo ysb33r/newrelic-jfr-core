@@ -9,11 +9,13 @@ import static com.newrelic.jfr.daemon.JFRUploader.COMMON_ATTRIBUTES;
 import com.newrelic.jfr.ToEventRegistry;
 import com.newrelic.jfr.ToMetricRegistry;
 import com.newrelic.jfr.ToSummaryRegistry;
+import com.newrelic.jfr.toevent.JVMInformationMapper;
 import com.newrelic.telemetry.TelemetryClient;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import javax.management.InstanceNotFoundException;
@@ -97,7 +99,7 @@ public final class JFRController {
     var harvestCycleSecs = DEFAULT_DELAY_BETWEEN_DUMPS_SECS;
 
     try {
-      JFRUploader uploader = buildUploader();
+      JFRUploader uploader = buildUploader(port);
       JFRJMXConnector connector = new JFRJMXConnector(host, port, harvestCycleSecs);
       var processor = new JFRController(uploader, connector);
       processor.setup();
@@ -108,12 +110,13 @@ public final class JFRController {
     }
   }
 
-  static JFRUploader buildUploader() throws UnknownHostException, MalformedURLException {
-    String localIpAddr = InetAddress.getLocalHost().toString();
+  static JFRUploader buildUploader(int jmxPort) throws UnknownHostException, MalformedURLException {
+    var localIpAddr = InetAddress.getLocalHost().toString();
+    var appName = appName().orElse(localIpAddr + ":" + jmxPort);
     var attr =
         COMMON_ATTRIBUTES
-            .put(APP_NAME, appName())
-            .put(SERVICE_NAME, appName())
+            .put(APP_NAME, appName)
+            .put(SERVICE_NAME, appName)
             .put(HOSTNAME, localIpAddr);
 
     var fileToBatches =
@@ -127,9 +130,18 @@ public final class JFRController {
     return new JFRUploader(telemetryClient, fileToBatches);
   }
 
-  private static String appName() {
-    // FIXME Read this from an appropriate event in the file
-    String appName = System.getenv(ENV_APP_NAME);
-    return appName == null ? "eventing_hobgoblin" : appName;
+  private static Optional<String> appName() {
+    var appName = System.getenv(ENV_APP_NAME);
+    if (appName != null && !"".equals(appName)) {
+      return Optional.of(appName);
+    }
+
+    appName = JVMInformationMapper.getObservedAppName().get();
+    if (appName != null && !"".equals(appName)) {
+      return Optional.of(appName);
+    }
+
+    // We didn't set an explicit name & haven't seen a JVMInformation event yet
+    return Optional.empty();
   }
 }

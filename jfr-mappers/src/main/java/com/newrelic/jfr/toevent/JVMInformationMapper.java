@@ -3,6 +3,7 @@ package com.newrelic.jfr.toevent;
 import com.newrelic.telemetry.Attributes;
 import com.newrelic.telemetry.events.Event;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import jdk.jfr.consumer.RecordedEvent;
 
 // Only occurs at process startup
@@ -22,14 +23,29 @@ import jdk.jfr.consumer.RecordedEvent;
 //        }
 public class JVMInformationMapper implements EventToEvent {
   public static final String EVENT_NAME = "jdk.JVMInformation";
+  private static AtomicReference<String> observedAppName = new AtomicReference<>("");
 
   @Override
   public String getEventName() {
     return EVENT_NAME;
   }
 
+  public static AtomicReference<String> getObservedAppName() {
+    return observedAppName;
+  }
+
   @Override
   public List<Event> apply(RecordedEvent event) {
+    // Handle javaArguments to possibly detect app name
+    var args = event.getString("jvmArguments").split(" ");
+    if (args.length > 1) {
+      var expected = observedAppName.get();
+      if (!args[0].equals(expected)) {
+        observedAppName.set(args[0]);
+        // We should log a change of appName here
+      }
+    }
+
     var timestamp = event.getStartTime().toEpochMilli();
     var attr = new Attributes();
     attr.put("jvmArguments", event.getString("jvmArguments"));
