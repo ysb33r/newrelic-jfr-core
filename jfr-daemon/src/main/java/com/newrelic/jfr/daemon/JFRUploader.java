@@ -12,7 +12,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import jdk.jfr.consumer.RecordingFile;
-import jdk.jfr.FlightRecorder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
