@@ -1,4 +1,4 @@
-package com.newrelic.jfr.daemon;
+package com.newrelic.jfr.daemon.internal;
 
 import java.io.IOException;
 import java.net.URL;

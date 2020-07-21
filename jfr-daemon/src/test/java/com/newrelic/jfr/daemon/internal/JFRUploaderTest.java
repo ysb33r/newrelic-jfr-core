@@ -1,4 +1,4 @@
-package com.newrelic.jfr.daemon;
+package com.newrelic.jfr.daemon.internal;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,6 +7,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
+import com.newrelic.jfr.daemon.internal.BufferedTelemetry;
+import com.newrelic.jfr.daemon.internal.FileToBufferedTelemetry;
+import com.newrelic.jfr.daemon.internal.JFRUploader;
 import com.newrelic.telemetry.TelemetryClient;
 import com.newrelic.telemetry.events.EventBatch;
 import com.newrelic.telemetry.metrics.MetricBatch;

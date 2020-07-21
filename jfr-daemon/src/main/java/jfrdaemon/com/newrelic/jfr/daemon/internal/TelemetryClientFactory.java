@@ -1,4 +1,4 @@
-package com.newrelic.jfr.daemon;
+package com.newrelic.jfr.daemon.internal;
 
 import com.newrelic.telemetry.EventBatchSenderFactory;
 import com.newrelic.telemetry.Java11HttpPoster;

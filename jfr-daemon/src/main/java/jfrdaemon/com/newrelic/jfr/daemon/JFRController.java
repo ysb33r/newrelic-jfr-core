@@ -1,21 +1,22 @@
 package com.newrelic.jfr.daemon;
 
-import static com.newrelic.jfr.daemon.AttributeNames.APP_NAME;
-import static com.newrelic.jfr.daemon.AttributeNames.HOSTNAME;
-import static com.newrelic.jfr.daemon.AttributeNames.SERVICE_NAME;
-import static com.newrelic.jfr.daemon.EnvironmentVars.ENV_APP_NAME;
-import static com.newrelic.jfr.daemon.EnvironmentVars.EVENTS_INGEST_URI;
-import static com.newrelic.jfr.daemon.EnvironmentVars.INSERT_API_KEY;
-import static com.newrelic.jfr.daemon.EnvironmentVars.JFR_SHARED_FILESYSTEM;
-import static com.newrelic.jfr.daemon.EnvironmentVars.METRICS_INGEST_URI;
-import static com.newrelic.jfr.daemon.EnvironmentVars.REMOTE_JMX_HOST;
-import static com.newrelic.jfr.daemon.EnvironmentVars.REMOTE_JMX_PORT;
-import static com.newrelic.jfr.daemon.JFRUploader.COMMON_ATTRIBUTES;
+import static com.newrelic.jfr.daemon.internal.AttributeNames.APP_NAME;
+import static com.newrelic.jfr.daemon.internal.AttributeNames.HOSTNAME;
+import static com.newrelic.jfr.daemon.internal.AttributeNames.SERVICE_NAME;
+import static com.newrelic.jfr.daemon.internal.EnvironmentVars.ENV_APP_NAME;
+import static com.newrelic.jfr.daemon.internal.EnvironmentVars.EVENTS_INGEST_URI;
+import static com.newrelic.jfr.daemon.internal.EnvironmentVars.INSERT_API_KEY;
+import static com.newrelic.jfr.daemon.internal.EnvironmentVars.JFR_SHARED_FILESYSTEM;
+import static com.newrelic.jfr.daemon.internal.EnvironmentVars.METRICS_INGEST_URI;
+import static com.newrelic.jfr.daemon.internal.EnvironmentVars.REMOTE_JMX_HOST;
+import static com.newrelic.jfr.daemon.internal.EnvironmentVars.REMOTE_JMX_PORT;
+import static com.newrelic.jfr.daemon.internal.JFRUploader.COMMON_ATTRIBUTES;
 import static java.util.function.Function.identity;
 
 import com.newrelic.jfr.ToEventRegistry;
 import com.newrelic.jfr.ToMetricRegistry;
 import com.newrelic.jfr.ToSummaryRegistry;
+import com.newrelic.jfr.daemon.internal.*;
 import com.newrelic.telemetry.TelemetryClient;
 import java.io.IOException;
 import java.net.InetAddress;

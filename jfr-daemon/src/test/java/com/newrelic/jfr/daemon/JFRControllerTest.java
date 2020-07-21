@@ -3,6 +3,7 @@ package com.newrelic.jfr.daemon;
 import static com.newrelic.jfr.daemon.JFRController.buildUploader;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.newrelic.jfr.daemon.internal.DaemonConfig;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

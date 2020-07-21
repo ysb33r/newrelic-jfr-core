@@ -1,4 +1,4 @@
-package com.newrelic.jfr.daemon;
+package com.newrelic.jfr.daemon.internal;
 
 public class AttributeNames {
   public static final String APP_NAME = "app.name";

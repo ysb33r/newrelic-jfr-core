@@ -1,4 +1,4 @@
-package com.newrelic.jfr.daemon;
+package com.newrelic.jfr.daemon.internal;
 
 import com.newrelic.telemetry.Attributes;
 import com.newrelic.telemetry.events.Event;

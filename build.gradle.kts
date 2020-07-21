@@ -14,7 +14,7 @@ allprojects {
 object Versions {
     const val junit = "5.6.2"
     const val mockitoJunit = "3.3.3"
-    const val newRelicTelemetry = "0.6.1"
+    const val newRelicTelemetry = "0.7.0-SNAPSHOT"
 }
 
 subprojects {
@@ -36,6 +36,12 @@ subprojects {
     configure<JavaPluginExtension> {
         withSourcesJar()
         withJavadocJar()
+    }
+
+    plugins.withType<JavaPlugin>().configureEach {
+        configure<JavaPluginExtension> {
+            modularity.inferModulePath.set(true)
+        }
     }
 
     tasks.named<Test>("test") {

@@ -1,6 +1,6 @@
-package com.newrelic.jfr.daemon;
+package com.newrelic.jfr.daemon.internal;
 
-import static com.newrelic.jfr.daemon.EnvironmentVars.INSERT_API_KEY;
+import static com.newrelic.jfr.daemon.internal.EnvironmentVars.INSERT_API_KEY;
 
 import java.net.URI;
 import java.time.Duration;

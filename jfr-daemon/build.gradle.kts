@@ -1,11 +1,19 @@
 private object Versions {
-    const val slf4j = "1.7.26"
+    const val slf4j = "1.7.30"
     const val gson = "2.8.6"
     const val log4j = "2.13.3"
 }
 
 plugins {
     id("com.github.johnrengelman.shadow") version "5.2.0"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs("src/main/java/jfrdaemon")
+        }
+    }
 }
 
 java {

@@ -1,6 +1,6 @@
-package com.newrelic.jfr.daemon;
+package com.newrelic.jfr.daemon.internal;
 
-import static com.newrelic.jfr.daemon.AttributeNames.*;
+import static com.newrelic.jfr.daemon.internal.AttributeNames.*;
 
 import com.newrelic.telemetry.Attributes;
 import com.newrelic.telemetry.TelemetryClient;
@@ -27,7 +27,7 @@ public final class JFRUploader {
           throw new RuntimeException("Error opening recording file", e);
         }
       };
-  static final Attributes COMMON_ATTRIBUTES =
+  public static final Attributes COMMON_ATTRIBUTES =
       new Attributes()
           .put(INSTRUMENTATION_NAME, "JFR")
           .put(INSTRUMENTATION_PROVIDER, "JFR-Uploader")

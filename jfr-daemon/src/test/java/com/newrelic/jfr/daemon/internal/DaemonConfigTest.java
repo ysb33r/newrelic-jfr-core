@@ -1,6 +1,6 @@
-package com.newrelic.jfr.daemon;
+package com.newrelic.jfr.daemon.internal;
 
-import static com.newrelic.jfr.daemon.DaemonConfig.DEFAULT_JMX_PORT;
+import static com.newrelic.jfr.daemon.internal.DaemonConfig.DEFAULT_JMX_PORT;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
