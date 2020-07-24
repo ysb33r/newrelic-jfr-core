@@ -64,7 +64,7 @@ public final class JFRUploader {
     this.fileDeleter = fileDeleter;
   }
 
-  void handleFile(final Path dumpFile) {
+  public void handleFile(final Path dumpFile) {
     // At startup should we read all the events present? This could be multiple hours of recordings
     Instant eventsAfter = lastSeen.orElse(Instant.EPOCH);
 

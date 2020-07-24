@@ -1,3 +1,8 @@
+object Versions {
+    const val newRelicTelemetry = "0.7.0-SNAPSHOT"
+}
+
+
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
@@ -10,8 +15,15 @@ tasks {
     jar.apply {
         manifest.attributes["Implementation-Version"] = project.version
         manifest.attributes["Implementation-Vendor"] = "New Relic, Inc"
+        manifest.attributes["Automatic-Module-Name"] = "com.newrelic.jfr"
     }
 }
+
+dependencies {
+    "api"("com.newrelic.telemetry:telemetry:${Versions.newRelicTelemetry}")
+    "api"("com.newrelic.telemetry:telemetry-http-java11:${Versions.newRelicTelemetry}")
+}
+
 
 publishing {
     publications {
