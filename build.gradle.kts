@@ -14,7 +14,7 @@ allprojects {
 object Versions {
     const val junit = "5.6.2"
     const val mockitoJunit = "3.3.3"
-    const val newRelicTelemetry = "0.7.0"
+    const val newRelicTelemetry = "0.8.0-SNAPSHOT"
 }
 
 subprojects {
@@ -26,7 +26,7 @@ subprojects {
     apply(plugin = "com.github.sherter.google-java-format")
 
     dependencies {
-        "api"("com.newrelic.telemetry:telemetry:${Versions.newRelicTelemetry}")
+//        "api"("com.newrelic.telemetry:telemetry:${Versions.newRelicTelemetry}")
         "api"("com.newrelic.telemetry:telemetry-http-java11:${Versions.newRelicTelemetry}")
         "testImplementation"("org.junit.jupiter:junit-jupiter-api:${Versions.junit}")
         "testImplementation"("org.mockito:mockito-junit-jupiter:${Versions.mockitoJunit}")
