@@ -1,15 +1,17 @@
+plugins {
+//    id("org.beryx.jlink")
+    id( "org.ysb33r.java.modulehelper")
+//    id("com.github.johnrengelman.shadow") version "5.2.0"
+}
+
+val newRelicTelemetryVersion: String by project
+val gsonVersion : String by project
+
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
     disableAutoTargetJvm()
 }
-
-plugins {
-    id("org.beryx.jlink") version("2.21.2")
-    id( "org.ysb33r.java.modulehelper") version("0.9.0")
-//    id("com.github.johnrengelman.shadow") version "5.2.0"
-}
-
 
 tasks {
     val taskScope = this
@@ -20,16 +22,18 @@ tasks {
     }
 }
 
+dependencies {
+    "api"("com.newrelic.telemetry:telemetry-all:${newRelicTelemetryVersion}")
+    implementation("com.google.code.gson:gson:${gsonVersion}")
+//    api("org.slf4j:slf4j-api:${slf4jVersion}")
+}
+
 extraJavaModules {
-//    module("slf4j-api-1.7.30.jar","org.slf4j","1.7.30") {
+//    module("slf4j-api-${slf4jVersion}.jar", "org.slf4j", slf4jVersion) {
 //        exports("org.slf4j")
-//        exports("org.slf4j.event")
 //    }
-//    module("gson-2.8.0.jar","com.google.code.gson","2.8.0") {
-//        exports("com.google.gson")
-//    }
-    module("telemetry-all-0.8.0-SNAPSHOT.jar", "com.newrelic.telemetry", "0.8.0-SNAPSHOT") {
-        exports("com.newrelic.telemetry")
+    module("gson-${gsonVersion}.jar", "com.google.code.gson", gsonVersion) {
+        exports("com.google.gson")
     }
 }
 
@@ -66,7 +70,6 @@ publishing {
             }
         }
     }
-
 }
 
 signing {
@@ -76,3 +79,13 @@ signing {
     useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
     this.sign(publishing.publications["maven"])
 }
+
+// This is only here to find the correct relocations when composing builds.
+// It only affetcs local development for people working on both newrelifc-jfr-core and newrelic-telemetry-sdk-java
+// at the same time.
+//if(project.gradle.includedBuilds.find { it.name == "newrelic-telemetry-sdk-java" } != null ) {
+//    var coreShadow = File(project.gradle.includedBuild("newrelic-telemetry-sdk-java").projectDir,"telemetry_core/build/libs/telemetry-core-${newRelicTelemetryVersion}.jar")
+//    dependencies {
+//        "implementation"(files(coreShadow))
+//    }
+//}

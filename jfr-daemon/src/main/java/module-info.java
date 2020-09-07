@@ -6,4 +6,5 @@ module com.newrelic.jfr.daemon {
   requires java.management;
   requires org.slf4j;
   requires com.newrelic.telemetry;
+  requires com.newrelic.jfr;
 }
